@@ -44,13 +44,14 @@
 
       window.assetUrl = function (file) {
         file = (file || '').replace(/^assets\//, '');
-        return BASE + file;
+        return BASE + file.split('/').map(function (p) { return encodeURIComponent(p); }).join('/');
       };
 
       window.assetCdn = function (file) {
         file = (file || '').replace(/^assets\//, '');
+        var enc = file.split('/').map(function (p) { return encodeURIComponent(p); }).join('/');
         if (GH.user && GH.repo) {
-          return 'https://cdn.jsdelivr.net/gh/' + GH.user + '/' + GH.repo + '@main/' + file;
+          return 'https://cdn.jsdelivr.net/gh/' + GH.user + '/' + GH.repo + '@main/' + enc;
         }
         return assetUrl(file);
       };
@@ -1439,17 +1440,17 @@
         <div class="fleet-img-card" data-bg="fleet-4.jpg">
           <img src="fleet-4.jpg" alt="هايس المحترم ELMOHTARAM" loading="lazy" decoding="async" />
         </div>
-        <div class="fleet-img-card" data-bg="fleet-5.jpg">
-          <img src="fleet-5.jpg" alt="هايس ELMOHTARM — لوحة مصر" loading="lazy" decoding="async" />
+        <div class="fleet-img-card" data-bg="photo_2026-05-31_21-28-41.jpg">
+          <img src="photo_2026-05-31_21-28-41.jpg" alt="هايس ELMOHTARM — واجهة أمامية" loading="lazy" decoding="async" />
         </div>
-        <div class="fleet-img-card" data-bg="fleet-6.jpg">
-          <img src="fleet-6.jpg" alt="تويوتا هايس أمامي" loading="lazy" decoding="async" />
+        <div class="fleet-img-card" data-bg="photo_2026-05-31_21-28-30.jpg">
+          <img src="photo_2026-05-31_21-28-30.jpg" alt="تويوتا هايس أمامي — لوحة مصر" loading="lazy" decoding="async" />
         </div>
-        <div class="fleet-img-card" data-bg="fleet-7.jpg">
-          <img src="fleet-7.jpg" alt="هايس جانبي — Welcome In Egypt" loading="lazy" decoding="async" />
+        <div class="fleet-img-card" data-bg="photo_2026-05-31_21-33-49.jpg">
+          <img src="photo_2026-05-31_21-33-49.jpg" alt="هايس جانبي — Welcome In Egypt" loading="lazy" decoding="async" />
         </div>
-        <div class="fleet-img-card" data-bg="fleet-8.jpg">
-          <img src="fleet-8.jpg" alt="هايس خلفي — المحترم" loading="lazy" decoding="async" />
+        <div class="fleet-img-card" data-bg="photo_2026-05-31_21-33-59.jpg">
+          <img src="photo_2026-05-31_21-33-59.jpg" alt="هايس خلفي — المحترم" loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -1485,23 +1486,23 @@
           <div class="interior-shot" data-bg="interior-4.jpg">
             <img src="interior-4.jpg" alt="مقاعد برتقالي مع تطريز Welcome" loading="lazy" decoding="async" />
           </div>
-          <div class="interior-shot" data-bg="interior-5.jpg">
-            <img src="interior-5.jpg" alt="مقاعد حمراء مريحة — المحترم" loading="lazy" decoding="async" />
+          <div class="interior-shot" data-bg="photo_2026-05-31_21-28-29.jpg">
+            <img src="photo_2026-05-31_21-28-29.jpg" alt="مقاعد حمراء مريحة — المحترم" loading="lazy" decoding="async" />
           </div>
-          <div class="interior-shot" data-bg="interior-6.jpg">
-            <img src="interior-6.jpg" alt="مقاعد Welcome داخل الهيايس" loading="lazy" decoding="async" />
+          <div class="interior-shot" data-bg="photo_2026-05-31_21-28-30 (2).jpg">
+            <img src="photo_2026-05-31_21-28-30 (2).jpg" alt="مقاعد Welcome داخل الهيايس" loading="lazy" decoding="async" />
           </div>
-          <div class="interior-shot" data-bg="interior-7.jpg">
-            <img src="interior-7.jpg" alt="تصميم داخلي مكيف وفاخر" loading="lazy" decoding="async" />
+          <div class="interior-shot" data-bg="photo_2026-05-25_14-24-27.jpg">
+            <img src="photo_2026-05-25_14-24-27.jpg" alt="تصميم داخلي مكيف وفاخر" loading="lazy" decoding="async" />
           </div>
-          <div class="interior-shot" data-bg="interior-8.jpg">
-            <img src="interior-8.jpg" alt="مقاعد نظيفة ومميزة" loading="lazy" decoding="async" />
+          <div class="interior-shot" data-bg="photo_2026-05-31_21-34-20.jpg">
+            <img src="photo_2026-05-31_21-34-20.jpg" alt="مقاعد نظيفة ومميزة" loading="lazy" decoding="async" />
           </div>
-          <div class="interior-shot" data-bg="interior-9.jpg">
-            <img src="interior-9.jpg" alt="راحة داخل الهيايس ليلاً" loading="lazy" decoding="async" />
+          <div class="interior-shot" data-bg="photo_2026-05-31_21-34-09.jpg">
+            <img src="photo_2026-05-31_21-34-09.jpg" alt="راحة داخل الهيايس ليلاً" loading="lazy" decoding="async" />
           </div>
-          <div class="interior-shot" data-bg="interior-10.jpg">
-            <img src="interior-10.jpg" alt="مقاعد Welcome مريحة" loading="lazy" decoding="async" />
+          <div class="interior-shot" data-bg="photo_2026-05-31_21-33-50.jpg">
+            <img src="photo_2026-05-31_21-33-50.jpg" alt="مقاعد Welcome مريحة" loading="lazy" decoding="async" />
           </div>
         </div>
 
