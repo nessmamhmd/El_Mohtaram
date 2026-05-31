@@ -621,7 +621,7 @@
     /* ── Fleet ── */
     .fleet-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.25rem;
       margin-bottom: 2rem;
     }
@@ -634,6 +634,31 @@
       min-height: 200px;
       border: 1px solid var(--glass-border);
       background: var(--dark-2) center/cover no-repeat;
+      cursor: zoom-in;
+    }
+
+    .fleet-img-card::after {
+      content: '🔍';
+      position: absolute;
+      inset: auto 0.75rem 0.75rem auto;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(6, 14, 10, 0.72);
+      border: 1px solid var(--glass-border);
+      font-size: 0.95rem;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+      pointer-events: none;
+    }
+
+    .fleet-img-card:hover::after {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .fleet-img-card img {
@@ -676,7 +701,7 @@
 
     .interior-gallery {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
       gap: 1rem;
     }
 
@@ -689,6 +714,31 @@
       background: var(--dark-2) center/cover no-repeat;
       position: relative;
       transition: transform 0.35s var(--ease);
+      cursor: zoom-in;
+    }
+
+    .interior-shot::after {
+      content: '🔍';
+      position: absolute;
+      inset: auto 0.65rem 0.65rem auto;
+      width: 2rem;
+      height: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(6, 14, 10, 0.72);
+      border: 1px solid var(--glass-border);
+      font-size: 0.85rem;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+      pointer-events: none;
+    }
+
+    .interior-shot:hover::after {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .interior-shot:hover { transform: translateY(-4px); }
@@ -731,6 +781,119 @@
 
     .interior-point h4 { font-weight: 800; margin-bottom: 0.2rem; }
     .interior-point p { font-size: 0.9rem; color: var(--muted); }
+
+    /* ── Lightbox ── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(0.75rem, 3vw, 1.5rem);
+      background: rgba(6, 14, 10, 0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s var(--ease), visibility 0.35s;
+    }
+
+    .lightbox.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      width: min(960px, 100%);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.85rem;
+      transform: scale(0.94);
+      transition: transform 0.35s var(--ease);
+    }
+
+    .lightbox.open .lightbox-inner {
+      transform: scale(1);
+    }
+
+    .lightbox-img-wrap {
+      width: 100%;
+      max-height: calc(90vh - 4rem);
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--shadow);
+      background: var(--dark-2);
+    }
+
+    .lightbox-img-wrap img {
+      width: 100%;
+      max-height: calc(90vh - 4rem);
+      object-fit: contain;
+      display: block;
+    }
+
+    .lightbox-caption {
+      color: var(--muted);
+      font-size: 0.92rem;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .lightbox-close,
+    .lightbox-nav {
+      position: absolute;
+      border: 1px solid var(--glass-border);
+      background: rgba(18, 40, 32, 0.88);
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-nav:hover {
+      background: rgba(242, 140, 40, 0.18);
+      border-color: rgba(242, 140, 40, 0.45);
+    }
+
+    .lightbox-close {
+      top: -0.25rem;
+      left: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .lightbox-nav {
+      top: 50%;
+      transform: translateY(-50%);
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .lightbox-nav:hover { transform: translateY(-50%) scale(1.06); }
+
+    .lightbox-prev { right: calc(100% + 0.75rem); }
+    .lightbox-next { left: calc(100% + 0.75rem); }
+
+    @media (max-width: 768px) {
+      .lightbox-prev { right: 0.5rem; top: auto; bottom: calc(100% + 0.5rem); transform: none; }
+      .lightbox-next { left: 0.5rem; top: auto; bottom: calc(100% + 0.5rem); transform: none; }
+      .lightbox-nav:hover { transform: none; }
+      .lightbox-close { top: 0; left: 0; }
+    }
 
     /* ── Why us ── */
     .why-grid {
@@ -1262,8 +1425,8 @@
     <div class="container reveal">
       <div class="section-head">
         <span class="section-label">Fleet</span>
-        <h2 class="section-title">أسطول تويوتا هايس 2018+</h2>
-        <p class="section-desc">سيارات حديثة، مكيفة بالكامل، بمقاعد مريحة وتصميم داخلي يناسب هوية المحترم.</p>
+        <h2 class="section-title">نُماذج من أسطولنا — تويوتا هايس 2018+</h2>
+        <p class="section-desc">اضغطي على أي صورة لمشاهدتها بحجم أكبر — سيارات حديثة، مكيفة بالكامل، بمقاعد مريحة.</p>
       </div>
 
       <div class="fleet-grid">
@@ -1275,6 +1438,18 @@
         </div>
         <div class="fleet-img-card" data-bg="fleet-4.jpg">
           <img src="fleet-4.jpg" alt="هايس المحترم ELMOHTARAM" loading="lazy" decoding="async" />
+        </div>
+        <div class="fleet-img-card" data-bg="fleet-5.jpg">
+          <img src="fleet-5.jpg" alt="هايس ELMOHTARM — لوحة مصر" loading="lazy" decoding="async" />
+        </div>
+        <div class="fleet-img-card" data-bg="fleet-6.jpg">
+          <img src="fleet-6.jpg" alt="تويوتا هايس أمامي" loading="lazy" decoding="async" />
+        </div>
+        <div class="fleet-img-card" data-bg="fleet-7.jpg">
+          <img src="fleet-7.jpg" alt="هايس جانبي — Welcome In Egypt" loading="lazy" decoding="async" />
+        </div>
+        <div class="fleet-img-card" data-bg="fleet-8.jpg">
+          <img src="fleet-8.jpg" alt="هايس خلفي — المحترم" loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -1293,7 +1468,7 @@
       <div class="section-head">
         <span class="section-label">Comfort</span>
         <h2 class="section-title">تجربة داخلية فاخرة</h2>
-        <p class="section-desc">مقاعد مميزة بألوان برتقالي وأسود وتصاميم فاخرة — نظافة وراحة وأمان للأطفال والعائلات.</p>
+        <p class="section-desc">مقاعد مريحة ونظيفة — اضغطي على الصورة لتكبيرها.</p>
       </div>
 
       <div class="interior-wrap">
@@ -1309,6 +1484,24 @@
           </div>
           <div class="interior-shot" data-bg="interior-4.jpg">
             <img src="interior-4.jpg" alt="مقاعد برتقالي مع تطريز Welcome" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-5.jpg">
+            <img src="interior-5.jpg" alt="مقاعد حمراء مريحة — المحترم" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-6.jpg">
+            <img src="interior-6.jpg" alt="مقاعد Welcome داخل الهيايس" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-7.jpg">
+            <img src="interior-7.jpg" alt="تصميم داخلي مكيف وفاخر" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-8.jpg">
+            <img src="interior-8.jpg" alt="مقاعد نظيفة ومميزة" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-9.jpg">
+            <img src="interior-9.jpg" alt="راحة داخل الهيايس ليلاً" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-10.jpg">
+            <img src="interior-10.jpg" alt="مقاعد Welcome مريحة" loading="lazy" decoding="async" />
           </div>
         </div>
 
@@ -1479,6 +1672,18 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
   </a>
 
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="عرض الصورة">
+    <div class="lightbox-inner">
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="إغلاق">×</button>
+      <button type="button" class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="الصورة السابقة">‹</button>
+      <button type="button" class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="الصورة التالية">›</button>
+      <div class="lightbox-img-wrap">
+        <img id="lightboxImg" src="" alt="" />
+      </div>
+      <p class="lightbox-caption" id="lightboxCaption"></p>
+    </div>
+  </div>
+
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1502,6 +1707,66 @@
       if (e.target === mobileMenu || e.target.closest('a')) setMenu(false);
     });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+    // Lightbox — تكبير الصور عند الضغط
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const galleryItems = Array.from(document.querySelectorAll('.fleet-img-card, .interior-shot'));
+    let lightboxIndex = 0;
+
+    function showLightbox(i) {
+      if (!galleryItems.length) return;
+      lightboxIndex = (i + galleryItems.length) % galleryItems.length;
+      const item = galleryItems[lightboxIndex];
+      const img = item.querySelector('img');
+      if (!img) return;
+      lightboxImg.src = img.currentSrc || img.src;
+      lightboxImg.alt = img.alt || '';
+      lightboxCaption.textContent = img.alt || '';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lightboxImg.removeAttribute('src');
+    }
+
+    galleryItems.forEach((item, i) => {
+      item.setAttribute('role', 'button');
+      item.setAttribute('tabindex', '0');
+      item.setAttribute('aria-label', 'عرض الصورة بحجم أكبر');
+      item.addEventListener('click', () => showLightbox(i));
+      item.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          showLightbox(i);
+        }
+      });
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+    document.getElementById('lightboxPrev').addEventListener('click', (e) => {
+      e.stopPropagation();
+      showLightbox(lightboxIndex - 1);
+    });
+    document.getElementById('lightboxNext').addEventListener('click', (e) => {
+      e.stopPropagation();
+      showLightbox(lightboxIndex + 1);
+    });
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') showLightbox(lightboxIndex + 1);
+      if (e.key === 'ArrowLeft') showLightbox(lightboxIndex - 1);
+    });
 
     // Scroll reveal
     const reveals = document.querySelectorAll('.reveal');
