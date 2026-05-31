@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0B1A12" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <link rel="apple-touch-icon" href="assets/logo.jpg" />
+  <link rel="apple-touch-icon" href="logo.jpg" />
   <script>
     /* ── مسارات الصور: محلي + GitHub Pages ── */
     (function () {
@@ -22,8 +22,8 @@
       }
 
       /* لو الصور مش ظاهرة على GitHub، املئي user و repo (مثال: user: "sara123", repo: "El_Mohtaram") */
+      window.GH = { user: 'nessmamhmd', repo: 'El_Mohtaram' };
 
-      window.GH = { user: 'sara123', repo: 'El_Mohtaram' };
       function siteBasePath() {
         var host = location.hostname;
         var parts = location.pathname.split('/').filter(Boolean);
@@ -44,13 +44,13 @@
 
       window.assetUrl = function (file) {
         file = (file || '').replace(/^assets\//, '');
-        return BASE + 'assets/' + file;
+        return BASE + file;
       };
 
       window.assetCdn = function (file) {
         file = (file || '').replace(/^assets\//, '');
         if (GH.user && GH.repo) {
-          return 'https://cdn.jsdelivr.net/gh/' + GH.user + '/' + GH.repo + '@main/assets/' + file;
+          return 'https://cdn.jsdelivr.net/gh/' + GH.user + '/' + GH.repo + '@main/' + file;
         }
         return assetUrl(file);
       };
@@ -61,19 +61,13 @@
       }
 
       function fixImg(img) {
-        var raw = (img.getAttribute('src') || '').split('assets/').pop();
+        var raw = (img.getAttribute('src') || '').split('/').pop();
         if (!raw) return;
         raw = raw.replace(/\.png$/i, '.jpg');
         img.src = assetUrl(raw);
         img.onerror = function () {
-          if (GH.user && GH.repo) {
-            img.src = assetCdn(raw);
-            return;
-          }
-          if (/\.jpg$/i.test(raw)) {
-            img.onerror = null;
-            img.src = assetUrl(raw.replace(/\.jpg$/i, '.png'));
-          }
+          img.onerror = null;
+          img.src = assetCdn(raw);
         };
       }
 
@@ -82,7 +76,7 @@
         document.querySelectorAll('[data-bg]').forEach(function (el) {
           setBg(el, el.getAttribute('data-bg'));
         });
-        document.querySelectorAll('img[src*="assets/"]').forEach(fixImg);
+        document.querySelectorAll('img[src*=".jpg"]').forEach(fixImg);
       }
 
       applyAll();
@@ -1148,7 +1142,7 @@
   <header class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="#hero" class="nav-brand" aria-label="المحترم — الرئيسية">
-        <img src="assets/logo.jpg" alt="شعار المحترم AL MOHTARAM" width="120" height="52" />
+        <img src="logo.jpg" alt="شعار المحترم AL MOHTARAM" width="120" height="52" />
         <div class="nav-brand-text">
           <span class="ar">المحترم</span>
           <span class="en">AL MOHTARAM</span>
@@ -1195,7 +1189,7 @@
   <section class="hero" id="hero">
     <div class="hero-bg" aria-hidden="true">
       <div class="hero-bg-fallback"></div>
-      <img src="assets/fleet-1.jpg" alt="" />
+      <img src="fleet-1.jpg" alt="" />
     </div>
     <div class="hero-overlay" aria-hidden="true"></div>
 
@@ -1214,7 +1208,7 @@
       <div class="hero-visual">
         <div class="hero-card-glass">
           <div class="hero-preview">
-            <img src="assets/logo.jpg" alt="المحترم AL MOHTARAM" loading="eager" />
+            <img src="logo.jpg" alt="المحترم AL MOHTARAM" loading="eager" />
           </div>
           <p style="text-align:center;font-weight:700;color:var(--muted);font-size:0.9rem;">إدارة: محمد رضوان</p>
           <div class="hero-stats">
@@ -1274,13 +1268,13 @@
 
       <div class="fleet-grid">
         <div class="fleet-img-card" data-bg="fleet-2.jpg">
-          <img src="assets/fleet-2.jpg" alt="هايس في المعرض" loading="lazy" decoding="async" />
+          <img src="fleet-2.jpg" alt="هايس في المعرض" loading="lazy" decoding="async" />
         </div>
         <div class="fleet-img-card" data-bg="fleet-3.jpg">
-          <img src="assets/fleet-3.jpg" alt="هايس 2018+" loading="lazy" decoding="async" />
+          <img src="fleet-3.jpg" alt="هايس 2018+" loading="lazy" decoding="async" />
         </div>
         <div class="fleet-img-card" data-bg="fleet-4.jpg">
-          <img src="assets/fleet-4.jpg" alt="هايس المحترم ELMOHTARAM" loading="lazy" decoding="async" />
+          <img src="fleet-4.jpg" alt="هايس المحترم ELMOHTARAM" loading="lazy" decoding="async" />
         </div>
       </div>
 
@@ -1305,16 +1299,16 @@
       <div class="interior-wrap">
         <div class="interior-gallery">
           <div class="interior-shot" data-bg="interior-1.jpg">
-            <img src="assets/interior-1.jpg" alt="مقاعد برتقالي وأسود" loading="lazy" decoding="async" />
+            <img src="interior-1.jpg" alt="مقاعد برتقالي وأسود" loading="lazy" decoding="async" />
           </div>
           <div class="interior-shot" data-bg="interior-2.jpg">
-            <img src="assets/interior-2.jpg" alt="مقاعد مريحة داخل الهيايس" loading="lazy" decoding="async" />
+            <img src="interior-2.jpg" alt="مقاعد مريحة داخل الهيايس" loading="lazy" decoding="async" />
           </div>
           <div class="interior-shot" data-bg="interior-3.jpg">
-            <img src="assets/interior-3.jpg" alt="تشطيب داخلي برتقالي" loading="lazy" decoding="async" />
+            <img src="interior-3.jpg" alt="تشطيب داخلي برتقالي" loading="lazy" decoding="async" />
           </div>
           <div class="interior-shot" data-bg="interior-4.jpg">
-            <img src="assets/interior-4.jpg" alt="مقاعد برتقالي مع تطريز Welcome" loading="lazy" decoding="async" />
+            <img src="interior-4.jpg" alt="مقاعد برتقالي مع تطريز Welcome" loading="lazy" decoding="async" />
           </div>
         </div>
 
@@ -1447,7 +1441,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <img src="assets/logo.jpg" alt="المحترم" />
+          <img src="logo.jpg" alt="المحترم" />
           <p>المحترم للنقل والرحلات — راحة وأمان والتزام. تشغيلات داخلية لجميع محافظات مصر.</p>
           <div class="footer-social">
             <a href="https://wa.me/201224599368" target="_blank" rel="noopener" aria-label="واتساب">💬</a>
