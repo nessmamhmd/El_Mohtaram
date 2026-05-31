@@ -1,0 +1,13 @@
+صور الموقع (9 ملفات — بدون تكرار):
+
+logo.jpg       — الشعار
+fleet-1.jpg    — هيرو (شارع)
+fleet-2.jpg    — معرض
+fleet-3.jpg    — طريق
+fleet-4.jpg    — واجهة ELMOHTARAM
+interior-1.jpg — داخلية برتقالي
+interior-2.jpg — داخلية
+interior-3.jpg — تشطيب برتقالي
+interior-4.jpg — Welcome
+
+ارفعي المجلد كامل على GitHub.

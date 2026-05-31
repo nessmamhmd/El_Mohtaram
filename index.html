@@ -1,0 +1,1554 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>المحترم للنقل والرحلات | AL MOHTARAM — نقل داخل جميع محافظات مصر</title>
+  <meta name="description" content="المحترم للنقل والرحلات: رحلات مدارس، مصايف، دورات شركات، وتنقلات بين المحافظات. راحة وأمان والتزام بالمواعيد." />
+  <meta name="theme-color" content="#0B1A12" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <link rel="apple-touch-icon" href="assets/logo.jpg" />
+  <script>
+    /* ── مسارات الصور: محلي + GitHub Pages ── */
+    (function () {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (r) {
+          r.forEach(function (x) { x.unregister(); });
+        });
+      }
+      if (window.caches) {
+        caches.keys().then(function (k) { k.forEach(function (n) { caches.delete(n); }); });
+      }
+
+      /* لو الصور مش ظاهرة على GitHub، املئي user و repo (مثال: user: "sara123", repo: "El_Mohtaram") */
+      window.GH = { user: '', repo: '' };
+
+      function siteBasePath() {
+        var host = location.hostname;
+        var parts = location.pathname.split('/').filter(Boolean);
+        if (host.endsWith('github.io') && parts.length) {
+          var first = parts[0].replace(/\.html?$/i, '');
+          if (first && first !== 'index.html') return '/' + first + '/';
+        }
+        var p = location.pathname;
+        if (/\.html?$/i.test(p)) p = p.substring(0, p.lastIndexOf('/') + 1);
+        else if (!p.endsWith('/')) p += '/';
+        return p || '/';
+      }
+
+      var BASE = siteBasePath();
+      var baseEl = document.createElement('base');
+      baseEl.href = BASE;
+      document.head.prepend(baseEl);
+
+      window.assetUrl = function (file) {
+        file = (file || '').replace(/^assets\//, '');
+        return BASE + 'assets/' + file;
+      };
+
+      window.assetCdn = function (file) {
+        file = (file || '').replace(/^assets\//, '');
+        if (GH.user && GH.repo) {
+          return 'https://cdn.jsdelivr.net/gh/' + GH.user + '/' + GH.repo + '@main/assets/' + file;
+        }
+        return assetUrl(file);
+      };
+
+      function setBg(el, file) {
+        if (!el || !file) return;
+        el.style.backgroundImage = "url('" + assetUrl(file) + "')";
+      }
+
+      function fixImg(img) {
+        var raw = (img.getAttribute('src') || '').split('assets/').pop();
+        if (!raw) return;
+        raw = raw.replace(/\.png$/i, '.jpg');
+        img.src = assetUrl(raw);
+        img.onerror = function () {
+          if (GH.user && GH.repo) {
+            img.src = assetCdn(raw);
+            return;
+          }
+          if (/\.jpg$/i.test(raw)) {
+            img.onerror = null;
+            img.src = assetUrl(raw.replace(/\.jpg$/i, '.png'));
+          }
+        };
+      }
+
+      function applyAll() {
+        setBg(document.querySelector('.hero-bg'), 'fleet-1.jpg');
+        document.querySelectorAll('[data-bg]').forEach(function (el) {
+          setBg(el, el.getAttribute('data-bg'));
+        });
+        document.querySelectorAll('img[src*="assets/"]').forEach(fixImg);
+      }
+
+      applyAll();
+      document.addEventListener('DOMContentLoaded', applyAll);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #F28C28;
+      --orange-light: #FFB35C;
+      --orange-glow: rgba(242, 140, 40, 0.35);
+      --dark: #0B1A12;
+      --dark-2: #122820;
+      --dark-3: #1A3328;
+      --black: #060E0A;
+      --white: #FFFFFF;
+      --text: #F4F7F5;
+      --muted: rgba(244, 247, 245, 0.72);
+      --glass: rgba(255, 255, 255, 0.07);
+      --glass-border: rgba(255, 255, 255, 0.14);
+      --shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+      --shadow-soft: 0 12px 32px rgba(0, 0, 0, 0.28);
+      --radius: 20px;
+      --radius-sm: 14px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --max: 1180px;
+      --nav-h: clamp(64px, 14vw, 78px);
+      --pad-x: clamp(0.85rem, 4vw, 1.5rem);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: clip;
+    }
+
+    body {
+      font-family: "Cairo", "Tajawal", system-ui, sans-serif;
+      background: var(--black);
+      color: var(--text);
+      line-height: 1.75;
+      font-size: clamp(15px, 2.5vw, 16px);
+      overflow-x: clip;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .fleet-img-card img,
+    .interior-shot img,
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      max-width: none;
+      object-fit: cover;
+    }
+
+    .hero-preview img {
+      width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: contain;
+    }
+
+    .nav-brand img {
+      width: auto;
+      height: clamp(40px, 10vw, 52px);
+      max-width: 120px;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+    }
+
+    .footer-brand img {
+      width: auto;
+      height: clamp(48px, 12vw, 72px);
+      max-width: 200px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+    a { color: inherit; }
+
+    .container {
+      width: min(var(--max), calc(100% - 2 * var(--pad-x)));
+      margin-inline: auto;
+      padding-inline: 0;
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      padding: 0 var(--pad-x);
+      transition: background 0.4s var(--ease), box-shadow 0.4s var(--ease), border-color 0.4s var(--ease);
+      border-bottom: 1px solid transparent;
+    }
+
+    .navbar.scrolled {
+      background: rgba(6, 14, 10, 0.82);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-color: var(--glass-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .nav-inner {
+      width: min(var(--max), 100%);
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .nav-brand-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .nav-brand-text .ar {
+      font-weight: 900;
+      font-size: 1.05rem;
+      letter-spacing: 0.3px;
+    }
+
+    .nav-brand-text .en {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 1.5px;
+      direction: ltr;
+      text-align: right;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.6rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--muted);
+      transition: color 0.25s;
+      white-space: nowrap;
+    }
+
+    .nav-links a:hover { color: var(--orange-light); }
+
+    .nav-actions {
+      display: flex;
+      gap: 0.65rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0.72rem 1.35rem;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.25s var(--ease), box-shadow 0.25s, background 0.25s;
+      font-family: inherit;
+    }
+
+    .btn:active { transform: scale(0.97); }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--orange) 0%, #E07820 100%);
+      color: var(--white);
+      box-shadow: 0 8px 28px var(--orange-glow);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 12px 36px rgba(242, 140, 40, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      background: var(--glass);
+      color: var(--text);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(242, 140, 40, 0.4);
+    }
+
+    .btn-whatsapp {
+      background: rgba(37, 211, 102, 0.18);
+      border: 1px solid rgba(37, 211, 102, 0.35);
+      color: #7dffb0;
+    }
+
+    .btn-whatsapp:hover { background: rgba(37, 211, 102, 0.28); }
+
+    .nav-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      color: var(--text);
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      min-height: 100dvh;
+      display: flex;
+      align-items: center;
+      padding: calc(var(--nav-h) + 1.5rem) var(--pad-x) 3rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: var(--dark-2) center / cover no-repeat;
+    }
+
+    .hero-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+      transform: scale(1.04);
+      animation: heroKen 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes heroKen {
+      from { transform: scale(1.04); }
+      to { transform: scale(1.1); }
+    }
+
+    .hero-bg-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background:
+        linear-gradient(165deg, rgba(11, 26, 18, 0.55) 0%, rgba(6, 14, 10, 0.92) 55%, rgba(6, 14, 10, 0.98) 100%),
+        radial-gradient(ellipse 80% 60% at 75% 25%, rgba(242, 140, 40, 0.45) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 20% 80%, rgba(26, 51, 40, 0.6) 0%, transparent 50%),
+        linear-gradient(180deg, #1a3d2e 0%, #0b1a12 40%, #060e0a 100%);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background:
+        linear-gradient(105deg, rgba(6, 14, 10, 0.78) 0%, rgba(11, 26, 18, 0.5) 45%, rgba(11, 26, 18, 0.2) 100%),
+        linear-gradient(0deg, rgba(6, 14, 10, 0.55) 0%, transparent 45%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      width: min(var(--max), 100%);
+      margin-inline: auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0.45rem 1rem;
+      border-radius: 999px;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--orange-light);
+      margin-bottom: 1.25rem;
+      animation: fadeUp 0.8s var(--ease) both;
+    }
+
+    .hero-badge .pulse {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 12px var(--orange);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.2); }
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5.5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 1rem;
+      animation: fadeUp 0.8s 0.1s var(--ease) both;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--orange);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.1rem, 2.5vw, 1.45rem);
+      font-weight: 700;
+      color: var(--orange-light);
+      margin-bottom: 0.5rem;
+      animation: fadeUp 0.8s 0.15s var(--ease) both;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 520px;
+      font-weight: 500;
+      margin-bottom: 1.75rem;
+      animation: fadeUp 0.8s 0.2s var(--ease) both;
+    }
+
+    .hero-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      animation: fadeUp 0.8s 0.25s var(--ease) both;
+    }
+
+    .hero-btns .btn { min-width: min(100%, 200px); }
+
+    .hero-visual {
+      position: relative;
+      animation: fadeUp 1s 0.3s var(--ease) both;
+    }
+
+    .hero-card-glass {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-preview {
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+      border: 1px solid var(--glass-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem;
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .hero-preview img {
+      width: auto;
+      max-width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .hero-stat {
+      text-align: center;
+      padding: 0.85rem 0.5rem;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--glass-border);
+    }
+
+    .hero-stat strong {
+      display: block;
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--orange);
+    }
+
+    .hero-stat span {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Sections ── */
+    section {
+      padding: 5rem 0;
+      position: relative;
+    }
+
+    section.alt {
+      background: linear-gradient(180deg, transparent 0%, rgba(18, 40, 32, 0.35) 50%, transparent 100%);
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+      direction: ltr;
+    }
+
+    .section-title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      max-width: 640px;
+      margin-inline: auto;
+      font-weight: 500;
+    }
+
+    .reveal {
+      opacity: 1;
+      transform: translateY(28px);
+      transition: transform 0.65s var(--ease);
+    }
+
+    .reveal.visible {
+      transform: translateY(0);
+    }
+
+    /* ── Services ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .service-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.35rem;
+      text-align: center;
+      transition: transform 0.35s var(--ease), border-color 0.35s, box-shadow 0.35s;
+      backdrop-filter: blur(10px);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(242, 140, 40, 0.45);
+      box-shadow: 0 20px 48px rgba(242, 140, 40, 0.12);
+    }
+
+    .service-icon {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto 1rem;
+      border-radius: 16px;
+      display: grid;
+      place-items: center;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, rgba(242, 140, 40, 0.2), rgba(26, 51, 40, 0.5));
+      border: 1px solid rgba(242, 140, 40, 0.25);
+    }
+
+    .service-card h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Fleet ── */
+    .fleet-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+
+    .fleet-img-card {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      min-height: 200px;
+      border: 1px solid var(--glass-border);
+      background: var(--dark-2) center/cover no-repeat;
+    }
+
+    .fleet-img-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.6s var(--ease);
+    }
+
+    .fleet-img-card:hover img { transform: scale(1.06); }
+
+    .fleet-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+
+    .fleet-feat {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1rem 1.15rem;
+      border-radius: var(--radius-sm);
+      background: rgba(242, 140, 40, 0.08);
+      border: 1px solid rgba(242, 140, 40, 0.2);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    .fleet-feat .ico { font-size: 1.25rem; }
+
+    /* ── Interior ── */
+    .interior-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .interior-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .interior-shot {
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      min-height: 220px;
+      border: 1px solid var(--glass-border);
+      background: var(--dark-2) center/cover no-repeat;
+      position: relative;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .interior-shot:hover { transform: translateY(-4px); }
+
+    .interior-shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .interior-points {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .interior-point {
+      display: flex;
+      gap: 14px;
+      padding: 1.15rem;
+      border-radius: var(--radius-sm);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      transition: border-color 0.3s;
+    }
+
+    .interior-point:hover { border-color: rgba(242, 140, 40, 0.4); }
+
+    .interior-point .num {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--orange);
+      color: var(--black);
+      font-weight: 900;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .interior-point h4 { font-weight: 800; margin-bottom: 0.2rem; }
+    .interior-point p { font-size: 0.9rem; color: var(--muted); }
+
+    /* ── Why us ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .why-card {
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      background: linear-gradient(160deg, rgba(26, 51, 40, 0.5), rgba(6, 14, 10, 0.8));
+      border: 1px solid var(--glass-border);
+      text-align: center;
+      transition: transform 0.35s var(--ease);
+    }
+
+    .why-card:hover { transform: translateY(-6px); }
+
+    .why-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .why-card h3 { font-weight: 800; margin-bottom: 0.45rem; }
+    .why-card p { font-size: 0.88rem; color: var(--muted); }
+
+    /* ── Testimonials ── */
+    .testimonials-track {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .testimonial {
+      padding: 1.75rem;
+      border-radius: var(--radius);
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(12px);
+      position: relative;
+    }
+
+    .testimonial::before {
+      content: "\201C";
+      position: absolute;
+      top: 12px;
+      left: 18px;
+      font-size: 4rem;
+      line-height: 1;
+      color: var(--orange);
+      opacity: 0.25;
+      font-family: Georgia, serif;
+    }
+
+    .testimonial-stars {
+      color: var(--orange);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.75rem;
+    }
+
+    .testimonial p {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 800;
+    }
+
+    .testimonial-author .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange), var(--dark-3));
+      display: grid;
+      place-items: center;
+      font-size: 1rem;
+    }
+
+    .testimonial-author span {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+      display: block;
+    }
+
+    /* ── Booking ── */
+    .booking-section {
+      padding: 5rem 0 6rem;
+    }
+
+    .booking-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .booking-info h2 {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 900;
+      margin-bottom: 1rem;
+    }
+
+    .booking-info p { color: var(--muted); margin-bottom: 1.5rem; }
+
+    .booking-contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .booking-contact {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-sm);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--glass-border);
+      text-decoration: none;
+      font-weight: 700;
+      transition: border-color 0.3s;
+    }
+
+    .booking-contact:hover { border-color: var(--orange); }
+
+    .booking-form {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .booking-form h3 {
+      font-weight: 900;
+      margin-bottom: 1.25rem;
+      font-size: 1.2rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--muted);
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0, 0, 0, 0.35);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px var(--orange-glow);
+    }
+
+    .form-group textarea { min-height: 90px; resize: vertical; }
+
+    .booking-form .btn-primary {
+      width: 100%;
+      margin-top: 0.5rem;
+      padding: 1rem;
+      font-size: 1rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: linear-gradient(180deg, var(--dark) 0%, var(--black) 100%);
+      border-top: 1px solid var(--glass-border);
+      padding: 3.5rem 0 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      max-width: 320px;
+    }
+
+    .footer-col h4 {
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: var(--orange-light);
+    }
+
+    .footer-links {
+      list-style: none;
+      display: grid;
+      gap: 0.55rem;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-social {
+      display: flex;
+      gap: 0.65rem;
+      margin-top: 1rem;
+    }
+
+    .footer-social a {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      text-decoration: none;
+      font-size: 1.2rem;
+      transition: background 0.25s, transform 0.25s;
+    }
+
+    .footer-social a:hover {
+      background: rgba(242, 140, 40, 0.15);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--glass-border);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* ── Floating WhatsApp ── */
+    .float-wa {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      z-index: 190;
+      width: 58px;
+      height: 58px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      display: grid;
+      place-items: center;
+      box-shadow: 0 12px 36px rgba(37, 211, 102, 0.4);
+      text-decoration: none;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s;
+      animation: floatBounce 3s ease-in-out infinite;
+    }
+
+    .float-wa:hover {
+      transform: scale(1.08);
+      box-shadow: 0 16px 44px rgba(37, 211, 102, 0.55);
+    }
+
+    .float-wa svg { width: 30px; height: 30px; fill: white; }
+
+    @keyframes floatBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* ── Mobile menu ── */
+    .mobile-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 250;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(8px);
+      padding: calc(var(--nav-h) + 1rem) 1.25rem 1.25rem;
+    }
+
+    .mobile-overlay.open { display: block; }
+
+    .mobile-panel {
+      max-width: 400px;
+      margin-inline: auto;
+      background: rgba(11, 26, 18, 0.95);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      box-shadow: var(--shadow);
+    }
+
+    .mobile-panel ul {
+      list-style: none;
+      display: grid;
+      gap: 0.35rem;
+      margin-bottom: 1rem;
+    }
+
+    .mobile-panel a {
+      display: block;
+      padding: 0.85rem 1rem;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      color: var(--text);
+      transition: background 0.2s;
+    }
+
+    .mobile-panel a:hover { background: var(--glass); }
+
+    .mobile-panel .nav-actions {
+      flex-direction: column;
+    }
+
+    .mobile-panel .btn { width: 100%; }
+
+    /* ── Responsive ── */
+    @media (max-width: 1024px) {
+      .hero-content { grid-template-columns: 1fr; text-align: center; }
+      .hero-desc { margin-inline: auto; }
+      .hero-btns { justify-content: center; }
+      .hero-visual { max-width: min(420px, 100%); margin-inline: auto; width: 100%; }
+      .fleet-grid { grid-template-columns: repeat(2, 1fr); }
+      .interior-gallery { grid-template-columns: repeat(2, 1fr); }
+      .interior-wrap { grid-template-columns: 1fr; }
+      .booking-wrap { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links, .nav-actions { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-brand-text { display: none; }
+      .fleet-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+      .hero-stat { padding: 0.65rem 0.35rem; }
+      .hero-stat strong { font-size: 1.1rem; }
+      section { padding: clamp(2.5rem, 8vw, 3.5rem) 0; }
+      .booking-form { padding: 1.35rem; }
+      .hero-btns { flex-direction: column; width: 100%; max-width: 360px; margin-inline: auto; }
+      .hero-btns .btn { width: 100%; }
+    }
+
+    @media (max-width: 520px) {
+      .interior-gallery { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .hero-stats { grid-template-columns: 1fr; }
+      .float-wa {
+        bottom: max(16px, env(safe-area-inset-bottom));
+        left: max(16px, env(safe-area-inset-left));
+        width: 52px;
+        height: 52px;
+      }
+      .navbar { padding-inline: var(--pad-x); }
+      .nav-brand img { height: 42px; max-width: 100px; }
+      .footer-brand img { height: 50px; }
+    }
+
+    @media (max-width: 380px) {
+      .hero h1 { font-size: 1.65rem; }
+      .section-title { font-size: 1.45rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand" aria-label="المحترم — الرئيسية">
+        <img src="assets/logo.jpg" alt="شعار المحترم AL MOHTARAM" width="120" height="52" />
+        <div class="nav-brand-text">
+          <span class="ar">المحترم</span>
+          <span class="en">AL MOHTARAM</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="#fleet">أسطولنا</a></li>
+        <li><a href="#interior">الراحة</a></li>
+        <li><a href="#booking">احجز الآن</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="tel:01224599368">اتصال</a>
+        <a class="btn btn-primary" href="https://wa.me/201224599368" target="_blank" rel="noopener">واتساب</a>
+      </div>
+
+      <button class="nav-toggle" id="openMenu" type="button" aria-label="فتح القائمة" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="mobile-overlay" id="mobileMenu" aria-hidden="true">
+    <div class="mobile-panel">
+      <ul>
+        <li><a href="#services">خدماتنا</a></li>
+        <li><a href="#fleet">أسطولنا</a></li>
+        <li><a href="#interior">تجربة الراحة</a></li>
+        <li><a href="#why">لماذا نحن</a></li>
+        <li><a href="#testimonials">آراء العملاء</a></li>
+        <li><a href="#booking">احجز رحلتك</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a class="btn btn-ghost" href="tel:01224599368">01224599368</a>
+        <a class="btn btn-primary" href="https://wa.me/201224599368" target="_blank" rel="noopener">واتساب</a>
+      </div>
+    </div>
+  </div>
+
+  <section class="hero" id="hero">
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-bg-fallback"></div>
+      <img src="assets/fleet-1.jpg" alt="" />
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-content container">
+      <div>
+        <div class="hero-badge"><span class="pulse"></span>نقل محترف داخل جميع محافظات مصر</div>
+        <p class="hero-subtitle">راحة • أمان • التزام</p>
+        <h1>المحترم <em>للنقل والرحلات</em></h1>
+        <p class="hero-desc">تشغيلات داخلية لجميع محافظات مصر — رحلات مدارس، مصايف، دورات شركات، ورحلات خاصة بأسطول تويوتا هايس حديث ومكيف بالكامل.</p>
+        <div class="hero-btns">
+          <a class="btn btn-primary" href="#booking">احجز رحلتك</a>
+          <a class="btn btn-whatsapp" href="https://wa.me/201224599368?text=%D8%A7%D9%84%D8%B3%D9%84%D8%A7%D9%85%20%D8%B9%D8%A7%D9%8A%D8%B2%20%D8%A3%D8%AD%D8%B8%D9%89%20%D8%B1%D8%AD%D9%84%D8%A9" target="_blank" rel="noopener">تواصل واتساب</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-card-glass">
+          <div class="hero-preview">
+            <img src="assets/logo.jpg" alt="المحترم AL MOHTARAM" loading="eager" />
+          </div>
+          <p style="text-align:center;font-weight:700;color:var(--muted);font-size:0.9rem;">إدارة: محمد رضوان</p>
+          <div class="hero-stats">
+            <div class="hero-stat"><strong>24</strong><span>ساعة خدمة</span></div>
+            <div class="hero-stat"><strong>27</strong><span>محافظة</span></div>
+            <div class="hero-stat"><strong>100%</strong><span>التزام</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="alt">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="section-label">Services</span>
+        <h2 class="section-title">خدماتنا</h2>
+        <p class="section-desc">حلول نقل متكاملة للمدارس والشركات والعائلات — بأسعار مناسبة وجودة فاخرة.</p>
+      </div>
+      <div class="services-grid">
+        <article class="service-card">
+          <div class="service-icon">🎒</div>
+          <h3>رحلات مدارس</h3>
+          <p>نقل آمن ومنظم للطلاب مع سائقين محترفين ومواعيد دقيقة.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">🏖️</div>
+          <h3>رحلات مصايف</h3>
+          <p>رحلات عائلية للساحل والمصايف براحة وأجواء ممتعة.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">🏢</div>
+          <h3>دورات شركات</h3>
+          <p>تشغيلات يومية للموظفين والفروع بخطط ثابتة ومرنة.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">✨</div>
+          <h3>رحلات خاصة</h3>
+          <p>حجز مخصص للمناسبات والسفر الخاص حسب طلبك.</p>
+        </article>
+        <article class="service-card">
+          <div class="service-icon">🗺️</div>
+          <h3>تنقلات بين المحافظات</h3>
+          <p>ربط جميع محافظات مصر بتشغيلات داخلية موثوقة.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="fleet">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="section-label">Fleet</span>
+        <h2 class="section-title">أسطول تويوتا هايس 2018+</h2>
+        <p class="section-desc">سيارات حديثة، مكيفة بالكامل، بمقاعد مريحة وتصميم داخلي يناسب هوية المحترم.</p>
+      </div>
+
+      <div class="fleet-grid">
+        <div class="fleet-img-card" data-bg="fleet-2.jpg">
+          <img src="assets/fleet-2.jpg" alt="هايس في المعرض" loading="lazy" decoding="async" />
+        </div>
+        <div class="fleet-img-card" data-bg="fleet-3.jpg">
+          <img src="assets/fleet-3.jpg" alt="هايس 2018+" loading="lazy" decoding="async" />
+        </div>
+        <div class="fleet-img-card" data-bg="fleet-4.jpg">
+          <img src="assets/fleet-4.jpg" alt="هايس المحترم ELMOHTARAM" loading="lazy" decoding="async" />
+        </div>
+      </div>
+
+      <div class="fleet-features">
+        <div class="fleet-feat"><span class="ico">❄️</span> تكييف كامل</div>
+        <div class="fleet-feat"><span class="ico">💺</span> مقاعد مريحة</div>
+        <div class="fleet-feat"><span class="ico">👨‍✈️</span> سائقين محترفين</div>
+        <div class="fleet-feat"><span class="ico">⏱️</span> التزام بالمواعيد</div>
+        <div class="fleet-feat"><span class="ico">🚐</span> سيارات حديثة</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="interior" class="alt">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="section-label">Comfort</span>
+        <h2 class="section-title">تجربة داخلية فاخرة</h2>
+        <p class="section-desc">مقاعد مميزة بألوان برتقالي وأسود وتصاميم فاخرة — نظافة وراحة وأمان للأطفال والعائلات.</p>
+      </div>
+
+      <div class="interior-wrap">
+        <div class="interior-gallery">
+          <div class="interior-shot" data-bg="interior-1.jpg">
+            <img src="assets/interior-1.jpg" alt="مقاعد برتقالي وأسود" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-2.jpg">
+            <img src="assets/interior-2.jpg" alt="مقاعد مريحة داخل الهيايس" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-3.jpg">
+            <img src="assets/interior-3.jpg" alt="تشطيب داخلي برتقالي" loading="lazy" decoding="async" />
+          </div>
+          <div class="interior-shot" data-bg="interior-4.jpg">
+            <img src="assets/interior-4.jpg" alt="مقاعد برتقالي مع تطريز Welcome" loading="lazy" decoding="async" />
+          </div>
+        </div>
+
+        <div class="interior-points">
+          <div class="interior-point">
+            <span class="num">1</span>
+            <div><h4>نظافة</h4><p>تعقيم وتنظيف دوري قبل كل رحلة لراحة بالك.</p></div>
+          </div>
+          <div class="interior-point">
+            <span class="num">2</span>
+            <div><h4>راحة</h4><p>مقاعد واسعة ومكيفة لرحلات طويلة بدون إرهاق.</p></div>
+          </div>
+          <div class="interior-point">
+            <span class="num">3</span>
+            <div><h4>أمان للأطفال والعائلات</h4><p>سائقون مدربون وقيادة هادئة تناسب المدارس والعائلات.</p></div>
+          </div>
+          <div class="interior-point">
+            <span class="num">4</span>
+            <div><h4>مقاعد مميزة</h4><p>تصميم برتقالي وأسود يعكس هوية المحترم الفاخرة.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="section-label">Why Us</span>
+        <h2 class="section-title">لماذا تختار المحترم؟</h2>
+        <p class="section-desc">خبرة مصرية في النقل — فخامة في الخدمة وأسعار تناسب الجميع.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-card"><div class="icon">🕐</div><h3>خدمة 24 ساعة</h3><p>متابعة وحجز على مدار اليوم عبر الهاتف والواتساب.</p></div>
+        <div class="why-card"><div class="icon">🛡️</div><h3>أمان وراحة</h3><p>أسطول حديث وسائقون محترفون لرحلة مطمئنة.</p></div>
+        <div class="why-card"><div class="icon">💰</div><h3>أسعار مناسبة</h3><p>باقات مرنة حسب المسافة وعدد الأفراد.</p></div>
+        <div class="why-card"><div class="icon">🇪🇬</div><h3>تغطية جميع المحافظات</h3><p>تشغيلات داخلية في كل أنحاء الجمهورية.</p></div>
+        <div class="why-card"><div class="icon">⭐</div><h3>خبرة وثقة</h3><p>سمعة محترمة في النقل المدرسي والشركات والعائلات.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <div class="container reveal">
+      <div class="section-head">
+        <span class="section-label">Reviews</span>
+        <h2 class="section-title">آراء عملائنا</h2>
+        <p class="section-desc">ثقة العائلات والمدارس والشركات هي أكبر دليل على جودة خدمتنا.</p>
+      </div>
+      <div class="testimonials-track">
+        <article class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>رحلة المدرسة كانت منظمة جداً والسائق محترم وملتزم بالمواعيد. أنصح بيهم بجد.</p>
+          <div class="testimonial-author">
+            <div class="avatar">أ</div>
+            <div>أم أحمد<span>رحلات مدارس — القاهرة</span></div>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="testimonial-stars">★★★★★</div>
+          <p>رحلنا المصيف على هايس مكيف ومقاعده مريحة. الأسعار كويسة والتعامل راقي.</p>
+          <div class="testimonial-author">
+            <div class="avatar">م</div>
+            <div>محمود حسن<span>رحلة مصيف — الإسكندرية</span></div>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="testimonial-stars">★★★★☆</div>
+          <p>بنستخدمهم لتشغيل موظفين الشركة يومياً. التزام ممتاز وتواصل سريع على الواتساب.</p>
+          <div class="testimonial-author">
+            <div class="avatar">ش</div>
+            <div>شركة النور<span>دورات شركات</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="booking" class="booking-section alt">
+    <div class="container reveal">
+      <div class="booking-wrap">
+        <div class="booking-info">
+          <span class="section-label">Booking</span>
+          <h2>احجز رحلتك الآن</h2>
+          <p>املأ النموذج وسيتم تجهيز رسالة واتساب جاهزة بالتفاصيل — أو اتصل مباشرة.</p>
+          <div class="booking-contacts">
+            <a class="booking-contact" href="tel:01224599368">📞 01224599368</a>
+            <a class="booking-contact" href="tel:01151510355">📞 01151510355</a>
+            <a class="booking-contact" href="https://wa.me/201224599368" target="_blank" rel="noopener">💬 واتساب المحترم</a>
+          </div>
+        </div>
+
+        <form class="booking-form" id="bookingForm" novalidate>
+          <h3>طلب حجز</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">الاسم</label>
+              <input id="name" name="name" type="text" required placeholder="الاسم الكامل" />
+            </div>
+            <div class="form-group">
+              <label for="phone">رقم الهاتف</label>
+              <input id="phone" name="phone" type="tel" required placeholder="01xxxxxxxxx" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="destination">الوجهة</label>
+            <input id="destination" name="destination" type="text" required placeholder="مثال: القاهرة — الإسكندرية" />
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="passengers">عدد الأفراد</label>
+              <input id="passengers" name="passengers" type="number" min="1" max="50" required placeholder="14" />
+            </div>
+            <div class="form-group">
+              <label for="date">تاريخ الرحلة</label>
+              <input id="date" name="date" type="date" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="notes">ملاحظات (اختياري)</label>
+            <textarea id="notes" name="notes" placeholder="نوع الرحلة: مدرسة / مصيف / شركة..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">إرسال عبر واتساب</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo.jpg" alt="المحترم" />
+          <p>المحترم للنقل والرحلات — راحة وأمان والتزام. تشغيلات داخلية لجميع محافظات مصر.</p>
+          <div class="footer-social">
+            <a href="https://wa.me/201224599368" target="_blank" rel="noopener" aria-label="واتساب">💬</a>
+            <a href="https://www.facebook.com/profile.php?id=61576927934784" target="_blank" rel="noopener" aria-label="فيسبوك">📘</a>
+            <a href="tel:01224599368" aria-label="اتصال">📞</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4>روابط سريعة</h4>
+          <ul class="footer-links">
+            <li><a href="#services">خدماتنا</a></li>
+            <li><a href="#fleet">أسطولنا</a></li>
+            <li><a href="#interior">الراحة الداخلية</a></li>
+            <li><a href="#booking">احجز الآن</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>تواصل معنا</h4>
+          <ul class="footer-links">
+            <li><a href="tel:01224599368">01224599368</a></li>
+            <li><a href="tel:01151510355">01151510355</a></li>
+            <li><a href="https://wa.me/201224599368" target="_blank" rel="noopener">واتساب</a></li>
+            <li><a href="https://www.facebook.com/profile.php?id=61576927934784" target="_blank" rel="noopener">فيسبوك</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> المحترم للنقل والرحلات — جميع الحقوق محفوظة</span>
+        <span>AL MOHTARAM · مصر</span>
+      </div>
+    </div>
+  </footer>
+
+  <a class="float-wa" href="https://wa.me/201224599368" target="_blank" rel="noopener" aria-label="تواصل واتساب">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.435 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Sticky navbar
+    const navbar = document.getElementById('navbar');
+    const onScroll = () => navbar.classList.toggle('scrolled', window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu
+    const mobileMenu = document.getElementById('mobileMenu');
+    const openMenu = document.getElementById('openMenu');
+    const setMenu = (open) => {
+      mobileMenu.classList.toggle('open', open);
+      mobileMenu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      openMenu.setAttribute('aria-expanded', open ? 'true' : 'false');
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    openMenu.addEventListener('click', () => setMenu(true));
+    mobileMenu.addEventListener('click', (e) => {
+      if (e.target === mobileMenu || e.target.closest('a')) setMenu(false);
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setMenu(false); });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => { if (en.isIntersecting) en.target.classList.add('visible'); });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    reveals.forEach((el) => io.observe(el));
+    setTimeout(() => {
+      document.querySelectorAll('.reveal:not(.visible)').forEach((el) => el.classList.add('visible'));
+    }, 600);
+
+    // Booking → WhatsApp
+    document.getElementById('bookingForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const dest = document.getElementById('destination').value.trim();
+      const passengers = document.getElementById('passengers').value.trim();
+      const date = document.getElementById('date').value;
+      const notes = document.getElementById('notes').value.trim();
+
+      if (!name || !phone || !dest || !passengers || !date) {
+        alert('من فضلك أكمل جميع الحقول المطلوبة.');
+        return;
+      }
+
+      const lines = [
+        'السلام عليكم، أود حجز رحلة مع المحترم:',
+        '',
+        `الاسم: ${name}`,
+        `الهاتف: ${phone}`,
+        `الوجهة: ${dest}`,
+        `عدد الأفراد: ${passengers}`,
+        `تاريخ الرحلة: ${date}`,
+      ];
+      if (notes) lines.push(`ملاحظات: ${notes}`);
+
+      const text = encodeURIComponent(lines.join('\n'));
+      window.open(`https://wa.me/201224599368?text=${text}`, '_blank', 'noopener');
+    });
+
+  </script>
+</body>
+</html>
